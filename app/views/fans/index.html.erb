@@ -1,6 +1,41 @@
-<h1>Hello world</h1>
-<% @tweets.each do |tweet| %>
-<ul>
-  <li><%= tweet %></li>
-</ul>
-<% end %>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+      <h4 class="text-center">Tickets</h4>
+      <br>
+      <% @tweets.each do |tweet| %>
+        <%= link_to tweet_path(tweet) do %>
+          <div class="ticket">
+            <div class='ticket-status'>
+              <% if tweet.checked %>
+                <i class="fa fa-flag check-true-color"></i></li>
+              <% else %>
+                <i class="fa fa-flag color-red"></i></li>
+              <% end %>
+            </div>
+            <%= image_tag tweet.user.profile_image_url, class: "activity-image" %>
+            <div class='ticket-body'>
+              <h4 class="primary-color-light">Ticket n° <%= tweet.id %> </h4>
+              <p><%= tweet.user.name %></p>
+            </div>
+            <ul class="list-inline ticket-controls hidden-sm hidden-xs">
+              <li class="color-gray"><%= tweet.created_at.strftime("%d.%m.%y") %></li>
+              <% if tweet.checked %>
+                <li class="check-true-color"><i class="fa fa-check-circle"></i></li>
+              <% else %>
+                <li class="check-false-color"><i class="fa fa-check-circle"></i></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      <% end %>
+      <br>
+      <br>
+      <div class="text-center">
+        <%= link_to root_path, class: "btn btn-primary" do %>
+          Home
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

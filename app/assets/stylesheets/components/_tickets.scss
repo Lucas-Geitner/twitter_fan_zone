@@ -1,0 +1,79 @@
+.ticket {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-radius: 3px;
+  background: white;
+  transition: all 0.15s ease;
+  margin: 10px 0;
+}
+
+/* Body design */
+.ticket-body {
+  flex: 1 1 auto;
+}
+.ticket-body h4 {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 0;
+  color: $primary-color-light;
+}
+.ticket-body p {
+  font-weight: lighter;
+  color: #999999;
+  margin-bottom: 0;
+}
+
+/* ticket image */
+.ticket-image {
+  border-radius: 10px;
+  width: 100px;
+  height: 70px;
+  margin-right: 20px;
+}
+
+/* Status design */
+.ticket-status {
+  padding-right: 40px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 20px;
+  margin: 2px 0 0;
+  color: $secondary-color;
+}
+
+/* Controls design */
+.ticket-controls {
+  display: flex;
+  align-tickets: center;
+  text-align: center;
+  margin: 0px;
+  font-size: 15px;
+  color: $primary-color-light;
+}
+.ticket-controls a {
+  padding: 0 20px;
+  font-size: 15px;
+  color: $primary-color-light;
+}
+
+.ticket-controls-hidden a {
+  color: transparent;
+  font-size: 15px;
+  transition: all 0.15s ease;
+  border-color: transparent;
+}
+
+/* Hover effects */
+.ticket:hover {
+  background: $gray-lighter;
+  cursor: pointer;
+}
+
+// Ticket Vatiants
+.ticket-variant span {
+  font-size: 15px;
+  line-height: 2;
+  color: $gray-lighten;
+}
