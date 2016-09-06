@@ -16,7 +16,7 @@
   font-weight: bold;
   font-size: 18px;
   margin-top: 0;
-  color: $primary-color-light;
+  color: yellow;
 }
 .ticket-body p {
   font-weight: lighter;
@@ -40,7 +40,7 @@
   font-size: 15px;
   line-height: 20px;
   margin: 2px 0 0;
-  color: $secondary-color;
+  color: red;
 }
 
 /* Controls design */
@@ -50,12 +50,12 @@
   text-align: center;
   margin: 0px;
   font-size: 15px;
-  color: $primary-color-light;
+  color: yellow;
 }
 .ticket-controls a {
   padding: 0 20px;
   font-size: 15px;
-  color: $primary-color-light;
+  color: yellow;
 }
 
 .ticket-controls-hidden a {
@@ -67,7 +67,7 @@
 
 /* Hover effects */
 .ticket:hover {
-  background: $gray-lighter;
+  background: $gray;
   cursor: pointer;
 }
 
@@ -75,5 +75,5 @@
 .ticket-variant span {
   font-size: 15px;
   line-height: 2;
-  color: $gray-lighten;
+  color: $gray;
 }

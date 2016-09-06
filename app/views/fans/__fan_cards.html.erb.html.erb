@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+      <h4 class="text-center">Fans</h4>
+      <br>
+      <% @fans.each do |fan| %>
+        <%= link_to fan_path(fan) do %>
+          <div class="ticket">
+            <div class='ticket-status'>
+              <% if fan.checked %>
+                <i class="fa fa-flag check-true-color"></i></li>
+              <% else %>
+                <i class="fa fa-flag color-red"></i></li>
+              <% end %>
+            </div>
+            <%= image_tag fan.user.profile_image_url, class: "activity-image" %>
+            <div class='ticket-body'>
+              <h4 class="primary-color-light">user n° <%= fan.id %> </h4>
+              <p><%= fan.name %></p>
+            </div>
+            <ul class="list-inline ticket-controls hidden-sm hidden-xs">
+              <li class="color-gray"><%= fan.created_at.strftime("%d.%m.%y") %></li>
+              <% if fan.checked %>
+                <li class="check-true-color"><i class="fa fa-check-circle"></i></li>
+              <% else %>
+                <li class="check-false-color"><i class="fa fa-check-circle"></i></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+      <% end %>
+      <br>
+      <br>
+      <div class="text-center">
+        <%= link_to root_path, class: "btn btn-primary" do %>
+          Home
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
