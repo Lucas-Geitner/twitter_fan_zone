@@ -6,10 +6,12 @@ class FansController < ApplicationController
   @client.search("to:benoithamon", result_type: "recent").take(5).collect do |tweet|
       if tweet.id != Post.where(tweet_id: tweet.id)
       # Le tweet n'à pas encore été rajoutée.
-      Post.create(tweet_id: tweet.id, fan_id: tweet.user.id)
+      @post = Post.create(tweet_id: tweet.id, fan_id: tweet.user.id)
       if tweet.user.id != Fan.where(name: tweet.user.name)
         # Premier tweet d'un fan
-        Fan.create(name: tweet.user.name, category: "unknow", contact: "Pas encore contacté")
+        @fan = Fan.create(name: tweet.user.name, category: "unknow", contact: "Pas encore contacté")
+        @fan.posts << @post
+        @fan.save
       else
         # Incrementer le tweet au fan !
       end
