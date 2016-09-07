@@ -5,7 +5,7 @@ class FansController < ApplicationController
   @posts_ids = []
   @fans_names = []
 
-  @client.search("to:benoithamon", result_type: "recent").take(800).collect do |tweet|
+  @client.search("to:benoithamon", result_type: "recent").take(400).collect do |tweet|
     @posts = Post.all
     @posts.each do |post|
       @posts_ids << post.tweet_id
@@ -26,16 +26,17 @@ class FansController < ApplicationController
         # Premier tweet d'un fanra
         @fan = Fan.new(name: tweet.user.name, category: "unknow", contact: "Pas encore contacté")
         @fan.posts << @post
+        @fan.counter_of_tweet = @fan.counter_of_tweet + 1
         @fan.save
       else
         @fan = Fan.where(name: tweet.user.name).first
         @fan.posts << @post
+        @fan.counter_of_tweet = @fan.counter_of_tweet + 1
         @fan.save
       end
     end
-    @fans = Fan.all
-    # @fans.order()
-  end
+    @fans = Fan.all.order('counter_of_tweet DESC')
+    end
 end
   def show
     id = params[:id]
