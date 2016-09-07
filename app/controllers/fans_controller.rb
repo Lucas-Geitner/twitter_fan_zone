@@ -3,12 +3,20 @@ class FansController < ApplicationController
 
   @tweets = []
 
+<<<<<<< HEAD
   @client.search("to:benoithamon", result_type: "recent").take(200).collect do |tweet|
     @tweets = tweet.user.name
       if tweet.id != Post.find_by(tweet_id: tweet.id)
       # Le tweet n'à pas encore été rajoutée.
       @post = Post.create(tweet_id: tweet.id, fan_id: tweet.user.id)
       if tweet.user.name != Fan.where({name: tweet.user.name})
+=======
+  @client.search("to:benoithamon", result_type: "recent").take(5).collect do |tweet|
+      if tweet.id.to_s != Post.where(tweet_id: tweet.id.to_s)
+      # Le tweet n'à pas encore été rajoutée.
+      @post = Post.create(tweet_id: tweet.id.to_s, fan_id: tweet.user.id.to_s)
+      if tweet.user.id != Fan.where(name: tweet.user.name)
+>>>>>>> origin/int-to-s
         # Premier tweet d'un fan
         @fan = Fan.create(name: tweet.user.name, category: "unknow", contact: "Pas encore contacté")
         @fan.posts << @post
