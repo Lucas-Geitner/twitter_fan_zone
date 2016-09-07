@@ -50,6 +50,7 @@ class FansController < ApplicationController
   end
   end
 end
+
   def show
     id = params[:id]
     @fan = Fan.find(id)
