@@ -1,9 +1,30 @@
-<%= @fan.name %>
 <% @fan.posts.each do |post| %>
 <% post_twitter = @client.status(post.tweet_id) %>
-<ul>
-  <li><%= post_twitter.text %></li>
-</ul>
 <% @guy = @client.user(post.tweeter_user_id.to_i) %>
+<div class="container">
+  <div class="row col-xs-12">
+    <a><%=link_to @fan.name, "#{@guy.uri}" %></a>
+
+
+    <div class="text-align">
+<p>Categorie: <%= @fan.category %>Changer la catégorie : </p><%= simple_form_for(@fan) do |f| %>
+<%=f.input :category, priority: [ "Unknow" ], collection: ["sympathisant", "opposant", "neutre", "presse", "
+  unknow"] %>
+<%= f.submit class:"btn btn-warning" %>
+
+</div>
+</div>
+</div>
+
 <% end %>
-<li> <%= link_to "#{@guy.name}", "#{@guy.uri}" %> </li>
+
+<blockquote class="twitter-tweet padded">
+
+<div>
+
+  <p><%= post_twitter.text %></p>
+
+</div>
+<% end %>
+
+</blockquote>
