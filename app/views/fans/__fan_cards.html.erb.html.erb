@@ -16,7 +16,7 @@
             <%# post = fan.posts.first %>
             <%# picture = @client.user(post.tweeter_user_id.to_i) %>
             <%# @picture = picture.profile_image_url %>
-            <%#= image_tag @picture, class: "activity-image" %>
+            <%= image_tag fan.image_url, class: "activity-image" %>
             <div class='ticket-body'>
               <h4 class="primary-color-light"><%= fan.name %> </h4>
               <p> <strong> <%= fan.posts.count %> </strong> tweets</p>

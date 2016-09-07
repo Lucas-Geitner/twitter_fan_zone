@@ -27,6 +27,7 @@ class FansController < ApplicationController
         @fan = Fan.new(name: tweet.user.name, category: "unknow", contact: "Pas encore contacté")
         @fan.posts << @post
         @fan.counter_of_tweet = @fan.counter_of_tweet + 1
+        @fan.image_url = tweet.user.profile_image_url
         @fan.save
       else
         @fan = Fan.where(name: tweet.user.name).first
@@ -35,7 +36,7 @@ class FansController < ApplicationController
         @fan.save
       end
     end
-    @fans = Fan.all.order('counter_of_tweet DESC')
+    @fans = Fan.all.order('counter_of_tweet DESC').limit(50)
     end
 end
   def show
