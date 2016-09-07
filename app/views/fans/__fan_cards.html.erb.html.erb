@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-xs-8 col-xs-offset-2">
-      <h4 class="text-center">Fans</h4>
+      <h4 class="text-center"> <%= Post.all.count %> tweet sur Benoit Hamon</h4>
       <br>
       <% @fans.each do |fan| %>
         <%= link_to fan_path(fan) do %>
@@ -15,8 +15,8 @@
             </div>
             <%#= image_tag fan.user.profile_image_url, class: "activity-image" %>
             <div class='ticket-body'>
-              <h4 class="primary-color-light">user n° <%= fan.id %> </h4>
-              <p><%= fan.name %></p>
+              <h4 class="primary-color-light"><%= fan.name %> </h4>
+              <p><%= fan.posts.count %></p>
             </div>
             <ul class="list-inline ticket-controls hidden-sm hidden-xs">
               <li class="color-gray"><%= fan.created_at.strftime("%d.%m.%y") %></li>

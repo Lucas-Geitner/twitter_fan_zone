@@ -3,7 +3,7 @@
   align-items: center;
   padding: 20px;
   border-radius: 3px;
-  background: white;
+  background: rgba(227, 74, 89, 0.81);
   transition: all 0.15s ease;
   margin: 10px 0;
 }
@@ -67,7 +67,7 @@
 
 /* Hover effects */
 .ticket:hover {
-  background: $gray;
+  background: rgb(185, 0, 161);
   cursor: pointer;
 }
 
