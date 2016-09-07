@@ -1,0 +1,9 @@
+<%= @fan.name %>
+<% @fan.posts.each do |post| %>
+<% post_twitter = @client.status(post.tweet_id) %>
+<ul>
+  <li><%= post_twitter.text %></li>
+</ul>
+<% @guy = @client.user(post.tweeter_user_id.to_i) %>
+<% end %>
+<li> <%= link_to "#{@guy.name}", "#{@guy.uri}" %> </li>
