@@ -34,6 +34,7 @@ class FansController < ApplicationController
       end
     end
     @fans = Fan.all
+    # @fans.order()
   end
 end
   def show
