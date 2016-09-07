@@ -65,5 +65,5 @@ end
 
 private
 def fan_param
-  params.require(:fans).permit(:category)
+  params.require(:fan).permit(:category)
 end

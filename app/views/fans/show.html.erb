@@ -1,30 +1,47 @@
 <% @fan.posts.each do |post| %>
 <% post_twitter = @client.status(post.tweet_id) %>
 <% @guy = @client.user(post.tweeter_user_id.to_i) %>
-<div class="container">
-  <div class="row col-xs-12">
-    <a><%=link_to @fan.name, "#{@guy.uri}" %></a>
-
-
-    <div class="text-align">
-<p>Categorie: <%= @fan.category %>Changer la catégorie : </p><%= simple_form_for(@fan) do |f| %>
-<%=f.input :category, priority: [ "Unknow" ], collection: ["sympathisant", "opposant", "neutre", "presse", "
-  unknow"] %>
-<%= f.submit class:"btn btn-warning" %>
-
-</div>
-</div>
-</div>
 
 <% end %>
+<div class="container">
 
+      <h4><%=link_to @guy.name, "#{@guy.uri}", :target => "blank" %></h4>
+    <div class="text-align">
+    <%= @fan.category %>,
+    <%= @fan.contact %>
+    </div>
+
+  <% @fan.posts.each do |post| %>
+  <% post_twitter = @client.status(post.tweet_id) %>
+  <% @guy = @client.user(post.tweeter_user_id.to_i) %>
+  <div class="row text-align">
+    <div class="col-xs-6">
+
+<%=  link_to "#{post_twitter.uri}", :target => "blank" do %>
 <blockquote class="twitter-tweet padded">
-
-<div>
 
   <p><%= post_twitter.text %></p>
 
-</div>
+</blockquote>
+    </div>
+  </div>
 <% end %>
 
-</blockquote>
+
+<% end %>
+
+    <div class="row">
+    <div class="col-xs-3"> <%= simple_form_for(@fan) do |f| %>
+    <p>Changer la catégorie :</p>
+    <%= f.input :category, priority: [ "Inconnu" ], collection: ["Sympathisant", "Opposant", "Neutre", "Presse", "
+      unknow"], label: false, prompt: @fan.category %>
+    <p>Changer le status de contact : </p>
+    <%= f.input :contact, priority: ["Non-contacté"], collection: ["Non-contacté", "A contacter", "Contacté", "Sans intérêt"], label: false, prompt: @fan.contact %>
+   <%= f.submit class:"btn btn-warning" %>
+  </div>
+  </div>
+</div>
+
+
+<% end %>
+
