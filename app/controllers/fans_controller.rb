@@ -5,7 +5,7 @@ class FansController < ApplicationController
   @posts_ids = []
   @fans_names = []
 
-  @client.search("to:benoithamon", result_type: "recent").take(100).collect do |tweet|
+  @client.search("to:benoithamon", result_type: "recent").take(200).collect do |tweet|
     @posts = Post.all
     @posts.each do |post|
       @posts_ids << post.tweet_id
@@ -36,11 +36,33 @@ class FansController < ApplicationController
         @fan.save
       end
     end
-    @fans = Fan.all.order('counter_of_tweet DESC').limit(50)
-    end
+    querry = params["genre"]
+    if querry == "presse"
+      @fans = Fan.where(category: "presse").order('counter_of_tweet DESC').limit(200)
+    elsif querry == "unknow"
+      @fans = Fan.where(category: "unknow").order('counter_of_tweet DESC').limit(200)
+    elsif querry == "sympathisant"
+      @fans = Fan.where(category: "sympathisant").order('counter_of_tweet DESC').limit(200)
+    elsif querry == "sympathisant"
+      @fans = Fan.where(category: "neutre").order('counter_of_tweet DESC').limit(200)
+    else
+    @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
+  end
+  end
 end
   def show
     id = params[:id]
     @fan = Fan.find(id)
   end
+  def update
+    id = params[:id]
+    @fan = Fan.find(id)
+    @fan.update(fan_param)
+    redirect_to fan_path(@fan)
+  end
+end
+
+private
+def fan_param
+  params.require(:fans).permit(:category)
 end
