@@ -5,7 +5,7 @@ class FansController < ApplicationController
   @posts_ids = []
   @fans_names = []
 
-  @client.search("to:benoithamon", result_type: "recent").take(400).collect do |tweet|
+  @client.search("to:benoithamon", result_type: "recent").take(100).collect do |tweet|
     @posts = Post.all
     @posts.each do |post|
       @posts_ids << post.tweet_id

@@ -16,10 +16,11 @@
             <%#= image_tag fan.user.profile_image_url, class: "activity-image" %>
             <div class='ticket-body'>
               <h4 class="primary-color-light"><%= fan.name %> </h4>
-              <p><%= fan.posts.count %></p>
+              <p> <strong> <%= fan.posts.count %> </strong> tweets</p>
             </div>
             <ul class="list-inline ticket-controls hidden-sm hidden-xs">
-              <li class="color-gray"><%= fan.created_at.strftime("%d.%m.%y") %></li>
+              <!-- <li class="color-gray"><%#= fan.created_at.strftime("%d.%m.%y") %></li> -->
+              <li class="color-gray btn btn-warning"> <%= fan.category %> </li>
               <% if fan.contact == "Pas encore contacté" %>
                 <li class="check-true-color"><i class="fa fa-check-circle"></i></li>
               <% else %>
