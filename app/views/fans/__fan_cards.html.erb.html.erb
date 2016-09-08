@@ -6,7 +6,7 @@
       <br>
       <div class="category col-offset text-center">
         <%= link_to "Opposant", fans_path(genre: "Opposant"), class: "btn btn-danger" %>
-        <%= link_to "Presse", fans_path(genre: "Presse"), class: "btn btn-warning" %>
+        <%= link_to "Presse", fans_path(genre: "Presse"), class: "btn btn-primary" %>
         <%= link_to "Inconnu", fans_path(genre: "Inconnu"), class: "btn btn-info" %>
         <%#= link_to "chercher nouveaux fans", get_the_data_fans_path, class: "btn btn-primary" %>
         <%= link_to "Sympathisant", fans_path(genre: "Sympathisant"), class: "btn btn-primary" %>
@@ -26,7 +26,7 @@
         <%= link_to fan_path(fan) do %>
           <div class="ticket">
             <div class='ticket-status'>
-              <% if fan.contact == "Pas encore contacté" %>
+              <% if fan.contact == "Non-contacté" %>
                 <i class="fa fa-flag check-true-color"></i></li>
               <% else %>
                 <i class="fa fa-flag color-red"></i></li>
@@ -35,15 +35,15 @@
             <%# post = fan.posts.first %>
             <%# picture = @client.user(post.tweeter_user_id.to_i) %>
             <%# @picture = picture.profile_image_url %>
-            <%= image_tag fan.image_url, class: "activity-image" %>
+            <%= image_tag fan.image_url, class: "avatar-large" %>
             <div class='ticket-body'>
               <h4 class="primary-color-light"><%= fan.name %> </h4>
               <p> <strong> <%= fan.posts.count %> </strong> tweets</p>
             </div>
             <ul class="list-inline ticket-controls hidden-sm hidden-xs">
               <!-- <li class="color-gray"><%#= fan.created_at.strftime("%d.%m.%y") %></li> -->
-              <li class="color-gray btn btn-warning"> <%= fan.category %> </li>
-              <% if fan.contact == "Pas encore contacté" %>
+              <li class="color-gray btn btn-primary"> <%= fan.category %> </li>
+              <% if fan.contact == "Non-contacté" %>
                 <li class="check-true-color"><i class="fa fa-check-circle"></i></li>
               <% else %>
                 <li class="check-false-color"><i class="fa fa-check-circle"></i></li>
