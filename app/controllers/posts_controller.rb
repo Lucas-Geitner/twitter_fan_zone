@@ -1,14 +1,13 @@
 class PostsController < ApplicationController
   def create
-    raise
-      user = params("id").to_i
-      message = params("message")
+      user = params["post"]["destinataire"].to_i
+      message = params["post"]["content"]
       @fan = Fan.find(user)
-      @client.update("#{@fan.name} #{message}")
-      ## raise
-      @post = Post.new(content: message, tweet_id: blabla, tweeter_user_id: blabla, destinataire: @fan.name  )
-      @Post.save
-      @fan << @post
+      fan = @client.user(@fan.posts.first.tweeter_user_id.to_i)
+      @a = @client.update("@#{fan.screen_name} #{message}")
+      @post = Post.new(content: message, tweet_id: @a.id, tweeter_user_id: @a.user.id, destinataire: @fan.name  )
+      @post.save
+      @fan.posts << @post
       @fan.save
       redirect_to fan_path(@fan)
   end
