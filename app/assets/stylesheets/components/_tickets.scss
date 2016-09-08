@@ -3,7 +3,7 @@
   align-items: center;
   padding: 20px;
   border-radius: 3px;
-  background: rgba(227, 74, 89, 0.81);
+  background: #d7267b;
   transition: all 0.15s ease;
   margin: 10px 0;
 }
@@ -16,7 +16,7 @@
   font-weight: bold;
   font-size: 18px;
   margin-top: 0;
-  color: yellow;
+  color: white;
 }
 .ticket-body p {
   font-weight: lighter;
@@ -50,12 +50,12 @@
   text-align: center;
   margin: 0px;
   font-size: 15px;
-  color: yellow;
+  color: white;
 }
 .ticket-controls a {
   padding: 0 20px;
   font-size: 15px;
-  color: yellow;
+  color: white;
 }
 
 .ticket-controls-hidden a {
