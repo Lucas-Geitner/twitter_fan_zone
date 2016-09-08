@@ -1,5 +1,6 @@
 class Fan < ApplicationRecord
-  CATEGORY=["sympathisant", "opposant", "neutre", "presse", "unknow"]
+  CATEGORIES=["Sympathisant", "Opposant", "Neutre", "Presse", "Inconnu", "Militant"]
+  CONTACTS=["Non-contacté", "A contacter", "Contacté", "Sans intérêt"]
   has_many :posts
   validates :name, presence: true, uniqueness: true
 end
