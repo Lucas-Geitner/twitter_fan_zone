@@ -96,8 +96,8 @@ class FansController < ApplicationController
       @fans = Fan.where(category: querry).order('counter_of_tweet DESC').limit(200)
       @fans.each do |fan|
         id = fan.posts.first.tweeter_user_id.to_i
-        message = "@#{fan.name} Chabadabada"
-        @client.update("#{message}")
+        message = "@" + fan.name + " Chabadabada"
+        @client.update("@Blabla", {in_reply_to_status_id: id})
       end
     else
     @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
