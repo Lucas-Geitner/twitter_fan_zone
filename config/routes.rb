@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
-  root to: 'pages#home'
+  root to: 'fans#index'
+  resources :posts
   resources :fans do
     collection do
       get 'get_the_data'

@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   def create
+    raise
       user = params("id").to_i
       message = params("message")
       @fan = Fan.find(user)
