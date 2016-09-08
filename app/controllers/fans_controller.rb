@@ -77,27 +77,15 @@ class FansController < ApplicationController
     redirect_to fans_path
   end
 
-  def tweet_the_fan
-    user = params("id").to_i
-    message = params("message")
-    @fan = Fan.find(user)
-    @client.update("#{@fan.name} #{message}")
-    ## raise
-    @post = Post.new(content: message, tweet_id: blabla, tweeter_user_id: blabla, destinataire: @fan.name  )
-    @Post.save
-    @fan << @post
-    @fan.save
-    redirect_to fan_path(@fan)
-  end
-
   def tweet_them_all
     querry = params["genre"]
+    message = params["message"]
     unless querry.nil? && querry == "Inconnu"
       @fans = Fan.where(category: querry).order('counter_of_tweet DESC').limit(200)
       @fans.each do |fan|
         id = fan.posts.first.tweeter_user_id.to_i
-        message = "@" + fan.name + " Chabadabada"
-        @client.update("@Blabla", {in_reply_to_status_id: id})
+        fan = @client.user(id)
+        @client.update("@#{fan.screen_name} test :)")
       end
     else
     @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
