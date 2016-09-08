@@ -4,15 +4,24 @@
       <h4 class="text-center"> <%= Post.all.count %> tweet sur Benoit Hamon</h4>
       <br>
       <br>
-      <%= link_to "Presse", fans_path(genre: "Presse"), class: "btn btn-primary" %>
-      <%= link_to "inconnu", fans_path(genre: "Inconnu"), class: "btn btn-primary" %>
-      <%= link_to "chercher nouveaux fans", get_the_data_fans_path, class: "btn btn-primary" %>
-      <%= link_to "Sympathisant", fans_path(genre: "Sympathisant"), class: "btn btn-primary" %>
-      <%= link_to "Militant", fans_path(genre: "Militant"), class: "btn btn-primary" %>
-
+      <div class="category col-offset text-center">
+        <%= link_to "Opposant", fans_path(genre: "Opposant"), class: "btn btn-danger" %>
+        <%= link_to "Presse", fans_path(genre: "Presse"), class: "btn btn-warning" %>
+        <%= link_to "Inconnu", fans_path(genre: "Inconnu"), class: "btn btn-info" %>
+        <%#= link_to "chercher nouveaux fans", get_the_data_fans_path, class: "btn btn-primary" %>
+        <%= link_to "Sympathisant", fans_path(genre: "Sympathisant"), class: "btn btn-primary" %>
+        <%= link_to "Militant", fans_path(genre: "Militant"), class: "btn btn-success" %>
+      </div>
+      <div class="row">
+      <br>
+      <br>
+      <div class="category col-offset">
       <% genre = params["genre"] %>
       <%= link_to "Follow them all", follow_them_all_fans_path(genre: genre), class: "btn btn-primary" %>
-      <br>
+      <%= link_to "tweet them all", tweet_them_all_fans_path(genre: genre), class: "btn btn-primary" %>
+    </div>
+    <br>
+
       <% @fans.each do |fan| %>
         <%= link_to fan_path(fan) do %>
           <div class="ticket">

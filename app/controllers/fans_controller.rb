@@ -4,7 +4,7 @@ class FansController < ApplicationController
     @tweets = []
     @posts_ids = []
     @fans_names = []
-    @client.search("#benoithamon2017", result_type: "recent").take(2000).collect do |tweet|
+    @client.search("#benoithamon2017", result_type: "recent").take(100).collect do |tweet|
       @posts = Post.all
       @posts.each do |post|
         @posts_ids << post.tweet_id
@@ -45,18 +45,10 @@ class FansController < ApplicationController
 
   def index
     querry = params["genre"]
-    if querry == "Presse"
-      @fans = Fan.where(category: "Presse").order('counter_of_tweet DESC').limit(200)
-    elsif querry == "Inconnu"
-      @fans = Fan.where(category: "Inconnu").order('counter_of_tweet DESC').limit(200)
-    elsif querry == "Sympathisant"
-      @fans = Fan.where(category: "Sympathisant").order('counter_of_tweet DESC').limit(200)
-    elsif querry == "Neutre"
-      @fans = Fan.where(category: "Neutre").order('counter_of_tweet DESC').limit(200)
-    elsif querry == "Militant"
-      @fans = Fan.where(category: "Militant").order('counter_of_tweet DESC').limit(200)
+    if querry.nil?
+      @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
     else
-    @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
+      @fans = Fan.where(category: querry).order('counter_of_tweet DESC').limit(200)
     end
   end
 
@@ -73,33 +65,14 @@ class FansController < ApplicationController
   end
   def follow_them_all
     querry = params["genre"]
-    if querry == "Presse"
-      @fans = Fan.where(category: "Presse").order('counter_of_tweet DESC').limit(200)
+    unless querry.nil? && querry == "Inconnu"
+      @fans = Fan.where(category: querry).order('counter_of_tweet DESC').limit(200)
       @fans.each do |fan|
         id = fan.posts.first.tweeter_user_id.to_i
         @client.follow(id)
       end
-    elsif querry == "Inconnu"
-      @fans = Fan.where(category: "Inconnu").order('counter_of_tweet DESC').limit(200)
-    elsif querry == "Sympathisant"
-      @fans = Fan.where(category: "Sympathisant").order('counter_of_tweet DESC').limit(200)
-      @fans.each do |fan|
-        id = fan.posts.first.tweeter_user_id.to_i
-        @client.follow(id)
-      end
-    elsif querry == "Militant"
-      @fans.each do |fan|
-        id = fan.posts.first.tweeter_user_id.to_i
-        @client.follow(id)
-      end
-    elsif querry == "Sympathisant"
-      @fans = Fan.where(category: "Neutre").order('counter_of_tweet DESC').limit(200)
-      @fans.each do |fan|
-        id = fan.posts.first.tweeter_user_id.to_i
-        @client.follow(id)
-      end
-    else
-    @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
+      else
+        @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
     end
     redirect_to fans_path
   end
@@ -119,25 +92,12 @@ class FansController < ApplicationController
 
   def tweet_them_all
     querry = params["genre"]
-    if querry == "Presse"
-      @fans = Fan.where(category: "Presse").order('counter_of_tweet DESC').limit(200)
+    unless querry.nil? && querry == "Inconnu"
+      @fans = Fan.where(category: querry).order('counter_of_tweet DESC').limit(200)
       @fans.each do |fan|
         id = fan.posts.first.tweeter_user_id.to_i
-        @client.update("#{@fan.name} #{message}")
-      end
-    elsif querry == "Inconnu"
-      @fans = Fan.where(category: "Inconnu").order('counter_of_tweet DESC').limit(200)
-    elsif querry == "Sympathisant"
-      @fans = Fan.where(category: "Sympathisant").order('counter_of_tweet DESC').limit(200)
-      @fans.each do |fan|
-        id = fan.posts.first.tweeter_user_id.to_i
-        @client.update("#{@fan.name} #{message}")
-      end
-    elsif querry == "Sympathisant"
-      @fans = Fan.where(category: "Neutre").order('counter_of_tweet DESC').limit(200)
-      @fans.each do |fan|
-        id = fan.posts.first.tweeter_user_id.to_i
-        @client.update("#{@fan.name} #{message}")
+        message = "@#{fan.name} Chabadabada"
+        @client.update("#{message}")
       end
     else
     @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
