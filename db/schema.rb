@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908105025) do
+ActiveRecord::Schema.define(version: 20160908122240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20160908105025) do
     t.datetime "updated_at",      null: false
     t.string   "content"
     t.string   "url_post"
+    t.string   "destinataire"
     t.index ["fan_id"], name: "index_posts_on_fan_id", using: :btree
   end
 

@@ -4,7 +4,7 @@ class FansController < ApplicationController
     @tweets = []
     @posts_ids = []
     @fans_names = []
-    @client.search("to:benoithamon", result_type: "recent").take(2000).collect do |tweet|
+    @client.search("#benoithamon2017", result_type: "recent").take(2000).collect do |tweet|
       @posts = Post.all
       @posts.each do |post|
         @posts_ids << post.tweet_id
@@ -25,7 +25,7 @@ class FansController < ApplicationController
         @post.save
         unless @fans_names.include? tweet.user.name
           # Premier tweet d'un fanra
-          @fan = Fan.new(name: tweet.user.name, category: "Inconnu", contact: "Pas encore contacté")
+          @fan = Fan.new(name: tweet.user.name, category: "Inconnu", contact: "Non Contacté")
           @fan.posts << @post
           @fan.counter_of_tweet = @fan.counter_of_tweet + 1
           @fan.image_url = tweet.user.profile_image_url
@@ -87,7 +87,47 @@ class FansController < ApplicationController
     @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
     end
     redirect_to fans_path
+  end
 
+  def tweet_the_fan
+    user = params("id").to_i
+    message = params("message")
+    @fan = Fan.find(user)
+    @client.update("#{@fan.name} #{message}")
+    ## raise
+    @post = Post.new(content: message, tweet_id: blabla, tweeter_user_id: blabla, destinataire: @fan.name  )
+    @Post.save
+    @fan << @post
+    @fan.save
+    redirect_to fan_path(@fan)
+  end
+
+  def tweet_them_all
+    querry = params["genre"]
+    if querry == "Presse"
+      @fans = Fan.where(category: "Presse").order('counter_of_tweet DESC').limit(200)
+      @fans.each do |fan|
+        id = fan.posts.first.tweeter_user_id.to_i
+        @client.update("#{@fan.name} #{message}")
+      end
+    elsif querry == "Inconnu"
+      @fans = Fan.where(category: "Inconnu").order('counter_of_tweet DESC').limit(200)
+    elsif querry == "Sympathisant"
+      @fans = Fan.where(category: "Sympathisant").order('counter_of_tweet DESC').limit(200)
+      @fans.each do |fan|
+        id = fan.posts.first.tweeter_user_id.to_i
+        @client.update("#{@fan.name} #{message}")
+      end
+    elsif querry == "Sympathisant"
+      @fans = Fan.where(category: "Neutre").order('counter_of_tweet DESC').limit(200)
+      @fans.each do |fan|
+        id = fan.posts.first.tweeter_user_id.to_i
+        @client.update("#{@fan.name} #{message}")
+      end
+    else
+    @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
+    end
+    redirect_to fans_path
   end
 end
 
