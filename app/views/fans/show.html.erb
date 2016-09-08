@@ -38,7 +38,7 @@
     <p>Changer le status de contact</p>
     <%= f.input :contact, collection: Fan::CONTACTS, label: false %>
     <%= f.submit class:"btn btn-warning" %>
-
+      <% end %>
     </div>
   </div>
 
@@ -46,11 +46,10 @@
   <blockquote class="twitter-tweet padded">
     <div>
       @<%= @guy.name  %>
-
     </div>
 
   </blockquote>
-    <% end %>
+
 </div>
 
 
