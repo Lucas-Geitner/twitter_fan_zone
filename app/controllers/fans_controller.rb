@@ -4,7 +4,7 @@ class FansController < ApplicationController
     @tweets = []
     @posts_ids = []
     @fans_names = []
-    @searchs = ["to: benoithamon", "#benoithamon2017", "benoithamon2017"]
+    @searchs = ["to: benoithamon", "#benoithamon2017"]
     @searchs.each do |search|
 
       @client.search(search, result_type: "recent").take(2500).collect do |tweet|
