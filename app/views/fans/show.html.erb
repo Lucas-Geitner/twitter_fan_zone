@@ -1,11 +1,6 @@
-<% @fan.posts.each do |post| %>
-  <% post_twitter = @client.status(post.tweet_id) %>
-  <% @guy = @client.user(post.tweeter_user_id.to_i) %>
-<% end %>
-
 <div class="container">
 
-    <h4>Twitteur : <%=link_to @guy.name, "#{@guy.uri}", :target => "blank" %></h4>
+    <h4>Twitteur : <%=link_to @fan.name, "#{@fan.url_fan}", :target => "blank" %></h4>
     <div class="text-align">
     <h5>Catégory : </h5> <strong> <%= @fan.category %></strong>
     <h5> Status de contact :</h5>
@@ -13,14 +8,14 @@
     </div>
 
   <% @fan.posts.each do |post| %>
-  <% post_twitter = @client.status(post.tweet_id) %>
-  <% @guy = @client.user(post.tweeter_user_id.to_i) %>
+  <%# post_twitter = @client.status(post.tweet_id) %>
+  <%# @guy = @client.user(post.tweeter_user_id.to_i) %>
   <div class="row text-align">
     <div class="col-xs-6">
 
-<%=  link_to "#{post_twitter.uri}", :target => "blank" do %>
+<%=  link_to "#{post.url_post}", :target => "blank" do %>
   <blockquote class="twitter-tweet padded">
-    <p><%= post_twitter.text %></p>
+    <p><%= post.content %></p>
   </blockquote>
 
     </div>
@@ -45,13 +40,9 @@
   <h4>Envoyer un message privé :</h4>
   <blockquote class="twitter-tweet padded">
     <div>
-      @<%= @guy.name  %>
+      @<%= @fan.name  %>
     </div>
 
   </blockquote>
 
 </div>
-
-
-
-

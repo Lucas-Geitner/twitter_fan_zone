@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160907143401) do
+ActiveRecord::Schema.define(version: 20160908105025) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20160907143401) do
     t.datetime "updated_at",                   null: false
     t.integer  "counter_of_tweet", default: 0
     t.string   "image_url"
+    t.string   "url_fan"
+    t.boolean  "follow"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -31,6 +33,8 @@ ActiveRecord::Schema.define(version: 20160907143401) do
     t.integer  "fan_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "content"
+    t.string   "url_post"
     t.index ["fan_id"], name: "index_posts_on_fan_id", using: :btree
   end
 

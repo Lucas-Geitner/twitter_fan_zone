@@ -6,7 +6,7 @@
       <br>
       <%= link_to "Presse", fans_path(genre: "Presse"), class: "btn btn-primary" %>
       <%= link_to "inconnu", fans_path(genre: "Inconnu"), class: "btn btn-primary" %>
-      <%= link_to "chercher nouveaux fans", fan_get_the_data_path(@fans.first), class: "btn btn-primary" %>
+      <%= link_to "chercher nouveaux fans", get_the_data_fans_path, class: "btn btn-primary" %>
       <%= link_to "Sympathisant", fans_path(genre: "Sympathisant"), class: "btn btn-primary" %>
       <% genre = params["genre"] %>
       <%= link_to "Follow them all", follow_them_all_fans_path(genre: genre), class: "btn btn-primary" %>

@@ -20,6 +20,8 @@ class FansController < ApplicationController
         @post = Post.new()
         @post.tweet_id = tweet.id.to_s
         @post.tweeter_user_id = tweet.user.id.to_s
+        @post.url_post = tweet.uri
+        @post.content = tweet.text
         @post.save
         unless @fans_names.include? tweet.user.name
           # Premier tweet d'un fanra
@@ -27,6 +29,7 @@ class FansController < ApplicationController
           @fan.posts << @post
           @fan.counter_of_tweet = @fan.counter_of_tweet + 1
           @fan.image_url = tweet.user.profile_image_url
+          @fan.url_fan = tweet.user.uri
           @fan.save
         else
           @fan = Fan.where(name: tweet.user.name).first
