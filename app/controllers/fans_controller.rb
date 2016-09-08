@@ -23,7 +23,7 @@ class FansController < ApplicationController
         @post.save
         unless @fans_names.include? tweet.user.name
           # Premier tweet d'un fanra
-          @fan = Fan.new(name: tweet.user.name, category: "unknow", contact: "Pas encore contacté")
+          @fan = Fan.new(name: tweet.user.name, category: "Inconnu", contact: "Pas encore contacté")
           @fan.posts << @post
           @fan.counter_of_tweet = @fan.counter_of_tweet + 1
           @fan.image_url = tweet.user.profile_image_url
@@ -42,14 +42,14 @@ class FansController < ApplicationController
 
   def index
     querry = params["genre"]
-    if querry == "presse"
-      @fans = Fan.where(category: "presse").order('counter_of_tweet DESC').limit(200)
-    elsif querry == "unknow"
-      @fans = Fan.where(category: "unknow").order('counter_of_tweet DESC').limit(200)
-    elsif querry == "sympathisant"
-      @fans = Fan.where(category: "sympathisant").order('counter_of_tweet DESC').limit(200)
-    elsif querry == "sympathisant"
-      @fans = Fan.where(category: "neutre").order('counter_of_tweet DESC').limit(200)
+    if querry == "Presse"
+      @fans = Fan.where(category: "Presse").order('counter_of_tweet DESC').limit(200)
+    elsif querry == "Inconnu"
+      @fans = Fan.where(category: "Inconnu").order('counter_of_tweet DESC').limit(200)
+    elsif querry == "Sympathisant"
+      @fans = Fan.where(category: "Sympathisant").order('counter_of_tweet DESC').limit(200)
+    elsif querry == "Sympathisant"
+      @fans = Fan.where(category: "Neutre").order('counter_of_tweet DESC').limit(200)
     else
     @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
     end
@@ -68,18 +68,18 @@ class FansController < ApplicationController
   end
   def follow_them_all
     querry = params["genre"]
-    if querry == "presse"
-      @fans = Fan.where(category: "presse").order('counter_of_tweet DESC').limit(200)
-    elsif querry == "unknow"
-      @fans = Fan.where(category: "unknow").order('counter_of_tweet DESC').limit(200)
-    elsif querry == "sympathisant"
-      @fans = Fan.where(category: "sympathisant").order('counter_of_tweet DESC').limit(200)
+    if querry == "Presse"
+      @fans = Fan.where(category: "Presse").order('counter_of_tweet DESC').limit(200)
+    elsif querry == "Inconnu"
+      @fans = Fan.where(category: "Inconnu").order('counter_of_tweet DESC').limit(200)
+    elsif querry == "Sympathisant"
+      @fans = Fan.where(category: "Sympathisant").order('counter_of_tweet DESC').limit(200)
       @fans.each do |fan|
         id = fan.posts.first.tweeter_user_id.to_i
         @client.follow(id)
       end
-    elsif querry == "sympathisant"
-      @fans = Fan.where(category: "neutre").order('counter_of_tweet DESC').limit(200)
+    elsif querry == "Sympathisant"
+      @fans = Fan.where(category: "Neutre").order('counter_of_tweet DESC').limit(200)
     else
     @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
     end
