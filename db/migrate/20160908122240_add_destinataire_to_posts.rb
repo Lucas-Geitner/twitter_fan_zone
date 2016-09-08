@@ -1,0 +1,5 @@
+class AddDestinataireToPosts < ActiveRecord::Migration[5.0]
+  def change
+    add_column :posts, :destinataire, :string
+  end
+end
