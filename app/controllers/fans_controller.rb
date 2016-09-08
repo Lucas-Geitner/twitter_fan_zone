@@ -51,8 +51,10 @@ class FansController < ApplicationController
       @fans = Fan.where(category: "Inconnu").order('counter_of_tweet DESC').limit(200)
     elsif querry == "Sympathisant"
       @fans = Fan.where(category: "Sympathisant").order('counter_of_tweet DESC').limit(200)
-    elsif querry == "Sympathisant"
+    elsif querry == "Neutre"
       @fans = Fan.where(category: "Neutre").order('counter_of_tweet DESC').limit(200)
+    elsif querry == "Militant"
+      @fans = Fan.where(category: "Militant").order('counter_of_tweet DESC').limit(200)
     else
     @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
     end
@@ -73,6 +75,10 @@ class FansController < ApplicationController
     querry = params["genre"]
     if querry == "Presse"
       @fans = Fan.where(category: "Presse").order('counter_of_tweet DESC').limit(200)
+      @fans.each do |fan|
+        id = fan.posts.first.tweeter_user_id.to_i
+        @client.follow(id)
+      end
     elsif querry == "Inconnu"
       @fans = Fan.where(category: "Inconnu").order('counter_of_tweet DESC').limit(200)
     elsif querry == "Sympathisant"
@@ -81,8 +87,17 @@ class FansController < ApplicationController
         id = fan.posts.first.tweeter_user_id.to_i
         @client.follow(id)
       end
+    elsif querry == "Militant"
+      @fans.each do |fan|
+        id = fan.posts.first.tweeter_user_id.to_i
+        @client.follow(id)
+      end
     elsif querry == "Sympathisant"
       @fans = Fan.where(category: "Neutre").order('counter_of_tweet DESC').limit(200)
+      @fans.each do |fan|
+        id = fan.posts.first.tweeter_user_id.to_i
+        @client.follow(id)
+      end
     else
     @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
     end
