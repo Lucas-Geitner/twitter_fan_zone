@@ -35,7 +35,6 @@
             <%= simple_form_for(Post.new) do |f| %>
             <%=  f.input :content, label: false, :input_html => {:style => "height: 60px;"}, prompt: "Merci de votre soutient" %>
             <%=  f.hidden_field :destinataire, :value => params["id"]%>
-
             <%=  f.submit class: "btn btn-warning" %>
 
             <% end %>
@@ -73,5 +72,3 @@
     </div>
   </div>
 </div>
-
-

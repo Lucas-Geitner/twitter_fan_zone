@@ -19,6 +19,7 @@
       <% genre = params["genre"] %>
       <%= link_to "Follow them all", follow_them_all_fans_path(genre: genre), class: "btn btn-primary" %>
       <%= link_to "tweet them all", tweet_them_all_fans_path(genre: genre), class: "btn btn-primary" %>
+
     </div>
     <br>
 
@@ -58,6 +59,17 @@
         <%= link_to root_path, class: "btn btn-primary" do %>
           Home
         <% end %>
+        <h4>Envoyer un tweet à tout le monde :</h4>
+          <blockquote class="message padded" >
+            <div style="margin-top: 10px;">
+
+              <%= simple_form_for(Post.new) do |f| %>
+              <%=  f.input :content, label: false, :input_html => {:style => "height: 60px;"}, prompt: "Merci de votre soutient" %>
+              <%=  f.hidden_field :destinataire, :value => params["genre"]%>
+              <%=  f.submit class: "btn btn-warning" %>
+
+              <% end %>
+
       </div>
     </div>
   </div>
