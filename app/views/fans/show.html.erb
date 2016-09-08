@@ -31,7 +31,14 @@
       <h4>Envoyer un tweet :</h4>
         <blockquote class="twitter-tweet padded">
           <div>
-            @<%= @fan.name  %>
+
+            <%= simple_form_for(Post.new) do |f| %>
+            <%=  f.input :content %>
+            <%=  f.hidden_field :destinataire, :value => params["id"]%>
+
+            <%=  f.submit class: "btn btn-warning" %>
+
+            <% end %>
 
           </div>
         </blockquote>
