@@ -29,11 +29,11 @@
 
     <div class="col-xs-6 padded">
       <h4>Envoyer un tweet :</h4>
-        <blockquote class="twitter-tweet padded">
-          <div>
+        <blockquote class="message padded" >
+          <div style="margin-top: 10px;">
 
             <%= simple_form_for(Post.new) do |f| %>
-            <%=  f.input :content %>
+            <%=  f.input :content, label: false, :input_html => {:style => "height: 60px;"}, prompt: "Merci de votre soutient" %>
             <%=  f.hidden_field :destinataire, :value => params["id"]%>
 
             <%=  f.submit class: "btn btn-warning" %>
@@ -46,7 +46,7 @@
 
     <div class="col-xs-6 padded">
       <h4>Envoyer un message privé :</h4>
-      <blockquote class="twitter-tweet padded">
+      <blockquote class="message padded">
         <div>
           @<%= @fan.name  %>
 
