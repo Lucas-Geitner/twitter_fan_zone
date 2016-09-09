@@ -61,21 +61,42 @@
           </div>
         <% end %>
       <% end %>
+    </div>
+
       <br>
       <br>
       <div class="text-center">
         <%= link_to root_path, class: "btn btn-primary" do %>
           Home
         <% end %>
-        <h4>Envoyer un tweet à tout le monde :</h4>
-          <blockquote class="message padded" >
-            <div style="margin-top: 10px;">
-              
-              <%= simple_form_for(Post.new) do |f| %>
-              <%=  f.input :content, label: false, :input_html => {:style => "height: 60px;"}, prompt: "Merci de votre soutient" %>
+        <div class="row padded">
+          <div class="col-xs-6">
+
+        <h4>Envoyer un <em>tweet</em> à toute cette catégorie :</h4>
+          <div class="message">
+            <div style="margin-top: 35px;">
+          <%= simple_form_for(Post.new) do |f| %>
+          <%=  f.input :content, label: false, :input_html => {:style => "height: 60px;"}, prompt: "Merci de votre soutient" %>
               <%=  f.hidden_field :destinataire, :value => params["genre"]%>
               <%=  f.submit class: "btn btn-warning" %>
               <% end %>
+            </div>
+          </div>
+        </div>
+
+            <div class="col-xs-6">
+
+              <h4>Envoyer un <em>message privé </em> à toute cette catégorie :</h4>
+
+                <div class="message">
+                  <div style="margin-top: 10px;">
+                    <%= simple_form_for(Message.new) do |f| %>
+                    <%=  f.input :sender, label: false, :input_html => {:style => "height: 60px;"}, prompt: "Merci de votre soutient" %>
+                    <%=  f.hidden_field :destinataire, :value => params["genre"]%>
+                    <%=  f.submit class: "btn btn-warning" %>
+                    <% end %>
+                  </div>
+                </div>
 
       </div>
     </div>

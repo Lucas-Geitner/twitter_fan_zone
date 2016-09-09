@@ -9,9 +9,7 @@ class PostsController < ApplicationController
         @fans.each do |fan|
           id = fan.posts.first.tweeter_user_id.to_i
           fane = @client.user(id)
-          @a = @client.direct_message_create(fane, "message")
-          # @client.direct_message_create(fane, "hello Emma")
-          # @a = @client.update("@#{fane.screen_name} #{message}")
+          @a = @client.update("@#{fane.screen_name} #{message}")
           @post = Post.new(content: message, tweet_id: @a.id, tweeter_user_id: @a.user.id, destinataire: fan.name  )
           @post.save
           fan.posts << @post
