@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160909153445) do
+ActiveRecord::Schema.define(version: 20160909202240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20160909153445) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.string   "text"
+    t.text     "text"
     t.string   "sender"
     t.integer  "fan_id"
     t.datetime "created_at", null: false
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20160909153445) do
     t.integer  "fan_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.string   "content"
+    t.text     "content"
     t.string   "url_post"
     t.string   "destinataire"
     t.index ["fan_id"], name: "index_posts_on_fan_id", using: :btree
