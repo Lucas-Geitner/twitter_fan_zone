@@ -6,7 +6,6 @@ class FansController < ApplicationController
     @fans_names = []
     @searchs = ["to: benoithamon", "#benoithamon2017"]
     @searchs.each do |search|
-
       @client.search(search, result_type: "recent").take(2500).collect do |tweet|
         @posts = Post.all
         @posts.each do |post|
