@@ -25,7 +25,7 @@
         <blockquote>
           <%= simple_form_for(Fan.new) do |f| %>
             <%=  f.input :name, placeholder: "name", label: false, :input_html => {:style => "height: 40px; width: 200px;"}%>
-            <%=  f.submit class: "btn btn-warning" %>
+            <%=  f.submit "Créer un fan", class: "btn btn-warning" %>
           <% end %>
         </blockquote>
     </div>
