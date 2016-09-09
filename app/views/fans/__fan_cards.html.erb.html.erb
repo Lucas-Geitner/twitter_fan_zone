@@ -12,14 +12,22 @@
         <%= link_to "Sympathisant", fans_path(genre: "Sympathisant"), class: "btn btn-primary" %>
         <%= link_to "Militant", fans_path(genre: "Militant"), class: "btn btn-success" %>
       </div>
+      <hr>
       <div class="row">
       <br>
       <br>
-      <div class="category col-offset">
+      <div class="category col-offset col-xs-4">
       <% genre = params["genre"] %>
       <%= link_to "Follow them all", follow_them_all_fans_path(genre: genre), class: "btn btn-primary" %>
-      <%= link_to "tweet them all", tweet_them_all_fans_path(genre: genre), class: "btn btn-primary" %>
-
+      <%#= link_to "tweet them all", tweet_them_all_fans_path(genre: genre), class: "btn btn-primary" %>
+      </div>
+      <div class="category col-offset col-xs-6 col-xs-offset-8">
+        <blockquote>
+          <%= simple_form_for(Fan.new) do |f| %>
+            <%=  f.input :name, placeholder: "name", label: false, :input_html => {:style => "height: 40px; width: 200px;"}%>
+            <%=  f.submit class: "btn btn-warning" %>
+          <% end %>
+        </blockquote>
     </div>
     <br>
 

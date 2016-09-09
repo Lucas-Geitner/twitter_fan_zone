@@ -20,12 +20,7 @@ class FansController < ApplicationController
 
         unless @posts_ids.include? tweet.id.to_s
           # Le tweet n'à pas encore été rajoutée.
-          @post = Post.new()
-          @post.tweet_id = tweet.id.to_s
-          @post.tweeter_user_id = tweet.user.id.to_s
-          @post.url_post = tweet.uri
-          @post.content = tweet.text
-          @post.save
+          create_post(tweet)
           unless @fans_names.include? tweet.user.name
             # Premier tweet d'un fanra
             @fan = Fan.new(name: tweet.user.name, category: "Inconnu", contact: "Non Contacté")
@@ -54,6 +49,7 @@ class FansController < ApplicationController
     else
       @fans = Fan.where(category: querry).order('counter_of_tweet DESC').limit(200)
     end
+    @fan = Fan.new
   end
 
   def show
@@ -69,6 +65,22 @@ class FansController < ApplicationController
     @fan.update(fan_param)
     redirect_to fan_path(@fan)
   end
+
+  def create
+    name = params["fan"]["name"]
+    name.gsub!("@", "")
+    twitteur = @client.user(name)
+    @fan = Fan.new(name: twitteur.name, category: "Militant", contact: "Non Contacté")
+    tweet = twitteur.tweet
+    create_post(tweet)
+    @fan.posts << @post
+    @fan.counter_of_tweet = @fan.counter_of_tweet + 1
+    @fan.image_url = tweet.user.profile_image_url
+    @fan.url_fan = tweet.user.uri
+    @fan.save
+    redirect_to @fan
+  end
+
   def follow_them_all
     querry = params["genre"]
     unless querry.nil? && querry == "Inconnu"
@@ -91,5 +103,14 @@ end
 
 private
 def fan_param
-  params.require(:fan).permit(:category)
+  params.require(:fan).permit(:category, :name)
+end
+
+def create_post(tweet)
+  @post = Post.new()
+  @post.tweet_id = tweet.id.to_s
+  @post.tweeter_user_id = tweet.user.id.to_s
+  @post.url_post = tweet.uri
+  @post.content = tweet.text
+  @post.save
 end
