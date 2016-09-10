@@ -76,9 +76,9 @@
           <div class="message">
             <div style="margin-top: 35px;">
           <%= simple_form_for(Post.new) do |f| %>
-          <%=  f.input :content, label: false, :input_html => {:style => "height: 60px;"}, prompt: "Merci de votre soutient" %>
+          <%=  f.input :content, label: false, :input_html => {:style => "height: 60px;", :maxlength => 140}, placeholder: "Merci de votre soutient" %>
               <%=  f.hidden_field :destinataire, :value => params["genre"]%>
-              <%=  f.submit class: "btn btn-warning" %>
+              <%=  f.submit "Envoyer", class: "btn btn-warning" %>
               <% end %>
             </div>
           </div>
@@ -91,9 +91,9 @@
                 <div class="message">
                   <div style="margin-top: 10px;">
                     <%= simple_form_for(Message.new) do |f| %>
-                    <%=  f.input :sender, label: false, :input_html => {:style => "height: 60px;"}, prompt: "Merci de votre soutient" %>
+                    <%=  f.input :sender, label: false, :input_html => {:style => "height: 60px;", :maxlength => 140}, placeholder: "Merci de votre soutient" %>
                     <%=  f.hidden_field :destinataire, :value => params["genre"]%>
-                    <%=  f.submit class: "btn btn-warning" %>
+                    <%=  f.submit "Envoyer", class: "btn btn-warning" %>
                     <% end %>
                   </div>
                 </div>
