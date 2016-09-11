@@ -1,44 +1,9 @@
 class FansController < ApplicationController
 
   def get_the_data
-    @tweets = []
-    @posts_ids = []
-    @fans_names = []
-    @searchs = ["to: benoithamon", "#benoithamon2017", "#lagauchepourgagner"]
-    @searchs.each do |search|
-      @client.search(search, result_type: "recent").take(500).collect do |tweet|
-        @posts = Post.all
-        @posts.each do |post|
-          @posts_ids << post.tweet_id
-        end
-        @fans = Fan.all
-        @fans.each do |fan|
-          @fans_names << fan.name
-        end
-        # a = Post.where(tweet_id: tweet.id.to_s).first.tweet_id
-
-        unless @posts_ids.include? tweet.id.to_s
-          # Le tweet n'à pas encore été rajoutée.
-          create_post(tweet)
-          unless @fans_names.include? tweet.user.name
-            # Premier tweet d'un fanra
-            @fan = Fan.new(name: tweet.user.name, category: "Inconnu", contact: "Non Contacté")
-            @fan.posts << @post
-            @fan.counter_of_tweet = @fan.counter_of_tweet + 1
-            @fan.image_url = tweet.user.profile_image_url
-            @fan.url_fan = tweet.user.uri
-            @fan.save
-          else
-            @fan = Fan.where(name: tweet.user.name).first
-            @fan.posts << @post
-            @fan.counter_of_tweet = @fan.counter_of_tweet + 1
-            @fan.save
-          end
-        end
-      end
-    end
+    SearchJob.perform_later
+    flash[:notice] = "La recherche est en cours, cela peut prendre un peu de temps"
     redirect_to fans_path
-
   end
 
   def index
@@ -84,11 +49,7 @@ class FansController < ApplicationController
   def follow_them_all
     querry = params["genre"]
     unless querry.nil? && querry == "Inconnu"
-      @fans = Fan.where(category: querry).order('counter_of_tweet DESC').limit(200)
-      @fans.each do |fan|
-        id = fan.posts.first.tweeter_user_id.to_i
-        @client.follow(id)
-      end
+      FollowJob.perform_later(querry)
       else
         @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
     end

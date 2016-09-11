@@ -10,4 +10,8 @@ Rails.application.routes.draw do
       get 'tweet_them_all'
     end
   end
+  require "sidekiq/web"
+  authenticate :user, lambda { |u| u.admin } do
+    mount Sidekiq::Web => '/sidekiq'
+  end
 end
