@@ -18,6 +18,15 @@
   z-index: 1;
   width: 100%;
 }
+
+a {
+  text-decoration: none;
+  color:#273b8d;
+  &:hover {
+    text-decoration: none;
+    color: #d91d7b;
+  }
+}
 .fa {
   color: #d91d7b;
 }

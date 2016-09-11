@@ -1,16 +1,18 @@
 <div class="navbar-wagon navbar-wagon-fixed">
   <!-- Logo -->
-  <%= link_to root_path, class: "navbar-wagon-brand img" do %>
+  <%= link_to root_path, class: "navbar-wagon-brand img", title: "Retour à la liste de fans", data: {toggle: "tooltip", placement: "bottom"}  do %>
     <%= image_tag "logo_benoit_president.png" %>
   <% end %>
 
+      <%= link_to("http://www.benoithamon2017.fr/", :target => "blank") do %>
+      <%= image_tag "logo-small.png", title: "Site officiel", data: {toggle: "tooltip", placement: "bottom"}  %>
+      <% end %>
+
+
   <!-- Right Navigation -->
   <div class="navbar-wagon hidden-xs hidden-sm">
-    <h2 style="color: #dc257d;font-family: 'Oswald', sans-serif; ">Twitter fan zone</h2>
+    <h2 style="color: #dc257d;"><%= link_to "Twitter fan zone", root_path, title: "Retour à la liste de fans", data: {toggle: "tooltip", placement: "bottom"} %></h2>
     <!-- Search form -->
-    <div >
-      <%= image_tag "logo-2017.png" %>
-    </div>
 
     <!-- Different navigation if login or not -->
     <% if user_signed_in? %>
@@ -65,3 +67,4 @@
     </div>
   </div>
 </div>
+

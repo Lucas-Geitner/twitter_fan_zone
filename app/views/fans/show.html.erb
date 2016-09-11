@@ -1,77 +1,120 @@
-<div class="wrapper grey padded">
+
+<div class="banner-fullscreen" style="background-image: linear-gradient(-225deg, rgba(0,101,168,0.6) 0%, rgba(0,36,61,0.6) 50%), url('<%= image_path('benoit-banner.png') %>'); background-position: center;">
+  <div class="container">
+    <div class="text-left">
+      <%= link_to "Retour", root_path, class:"btn btn-warning" %>
+    </div>
+  </div>
+  <div class="container text-center padded profile">
+    <%= image_tag @fan.image_url, class:"avatar-large" %>
+    <h3><strong><%=link_to @fan.name, "#{@fan.url_fan}", :target => "blank", title: "Voir sur Twitter", data: {toggle: "tooltip", placement: "bottom"} %></strong> </h3>
+    <div >
+      <h4 class="text-align"><strong> <%= link_to @fan.category, fans_path(genre: @fan.category), title: "Voir tous les #{@fan.category}s", data: {toggle: "tooltip", placement: "bottom"}  %></strong> </h4>
+      <h4><strong> <%= @fan.contact%></strong></h4>
+      <h4><strong> <%= @fan.counter_of_tweet %></strong> tweets</h4>
+    </div>
+    <br>
+      <br>
+      <div class="text-center">
+        <%= link_to "Retour à la liste complète", root_path, class:"btn btn-warning" %>
+      </div>
+  </div>
+</div>
+
+<div class="wrapper contenu">
   <div class="container">
     <div class="row">
       <div class="col-xs-6">
-      <%= image_tag @fan.image_url, class:"avatar-large" %>
-    <h4>Twitteur : <strong><%=link_to @fan.name, "#{@fan.url_fan}", :target => "blank", title: "Voir sur Twitter", data: {toggle: "tooltip", placement: "bottom"} %></strong> </h4>
-        <div >
-        <h5 class="text-align">Catégorie : <strong> <%= link_to @fan.category, fans_path(genre: @fan.category), title: "Voir tous les #{@fan.category}s", data: {toggle: "tooltip", placement: "bottom"}  %></strong> </h5>
-        <h5> Statut de contact :<strong> <%= @fan.contact%></strong></h5>
-        <h5>Nombre de tweets : <strong> <%= @fan.counter_of_tweet %></strong></h5>
-        </div>
-    </div>
-
-
-    <div class="col-xs-4">
-    <%= simple_form_for(@fan) do |f| %>
-    <h5>Changer la catégorie :</h5>
-    <%= f.input :category, collection: Fan::CATEGORIES,label: false, include_blank: false %>
-    <h5>Changer le statut de contact :</h5>
-    <%= f.input :contact, collection: Fan::CONTACTS, label: false, include_blank: false %>
-    <div class="text-right">
-    <%= f.submit "Actualiser", class:"btn btn-warning" %>
-    </div>
-      <% end %>
-    </div>
-  </div>
-
-
-
-  <div class="row">
-
-    <div class="col-xs-6">
-      <h4>Envoyer un tweet :</h4>
+      <h3>Tweet</h3>
         <blockquote class="message padded" >
-          <div style="margin-top: 10px;">
+          <div style="margin-top: 15px;">
+          <%= simple_form_for(Post.new) do |f| %>
+          <%=  f.input :content, label: false, placeholder: "Merci de votre soutient", :input_html => {:style => "height: 100px;", :maxlength => 140} %>
+          <%=  f.hidden_field :destinataire, :value => params["id"]%>
+            <div class="text-right">
+              <%=  f.submit "Envoyer", class: "btn btn-warning" %>
+            </div>
+              <% end %>
+          </div>
+        </blockquote>
+      </div>
 
-            <%= simple_form_for(Post.new) do |f| %>
-            <%=  f.input :content, label: false, :input_html => {:style => "height: 100px;", :maxlength => 140}, placeholder: "Merci de votre soutient" %>
+      <div class="col-xs-6">
+      <h3>Message privé</h3>
+        <blockquote class="message padded" >
+          <div style="margin-top: 15px;">
+            <%= simple_form_for(Message.new) do |f| %>
+            <%=  f.input :sender, label: false, :input_html => {:style => "height: 100px;", :maxlength => 140, :value => "Bonjour #{@fan.name.split.first}, "} %>
             <%=  f.hidden_field :destinataire, :value => params["id"]%>
             <div class="text-right">
-            <%=  f.submit "Envoyer", class: "btn btn-warning"%>
-            </div>
-            <% end %>
-
+              <%=  f.submit "Envoyer", class: "btn btn-warning" %>
+              </div>
+              <% end %>
           </div>
         </blockquote>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-4 col-xs-offset-4">
+        <%= simple_form_for(@fan) do |f| %>
+        <h5>Changer la catégorie :</h5>
+        <%= f.input :category, collection: Fan::CATEGORIES,label: false, include_blank: false %>
+        <h5>Changer le statut de contact :</h5>
+        <%= f.input :contact, collection: Fan::CONTACTS, label: false, include_blank: false %>
+        <div class="text-right">
+          <%= f.submit "Actualiser", class:"btn btn-warning" %>
+        </div>
+          <% end %>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+  <div class="wrapper">
+    <div class="container">
+      <h3>Tweets</h3>
+      <div class="row">
+        <% @fan.posts.each do |post| %>
+          <% unless post.content.first(2) == "RT" %>
+            <div class="col-xs-12 col-sm-4">
+              <%=  link_to "#{post.url_post}", :target => "blank" do %>
+              <blockquote class="twitter-tweet padded">
+                <p><%= post.content %></p>
+              </blockquote>
+                <% end %>
+            </div>
+          <% end %>
+          <% end %>
+      </div>
     </div>
 
-      <!-- <div class="col-xs-6 padded">
-        <h4>Envoyer un message privé :</h4>
-        <blockquote class="message padded">
-          <div>
-            @<%#= @fan.name  %>
-
-          </div>
-        </blockquote>
-      </div>
-
-   -->
-  </div>
-  <h4>Tweets :</h4>
-    <div class="row">
-
-
-    <% @fan.posts.each do |post| %>
-      <div class="col-xs-12 col-sm-4">
-      <%=  link_to "#{post.url_post}", :target => "blank" do %>
-        <blockquote class="twitter-tweet padded">
-          <p><%= post.content %></p>
-        </blockquote>
+    <div class="container">
+    <% rt = [] %>
+      <h3>Retweets</h3>
+      <div class="row">
+        <% @fan.posts.each do |post| %>
+          <% if post.content.first(2) == "RT"%>
+            <div class="col-xs-12 col-sm-4">
+              <%=  link_to "#{post.url_post}", :target => "blank" do %>
+              <blockquote class="twitter-tweet padded">
+                <p><%= post.content %></p>
+              </blockquote>
+                <% end %>
+            </div>
+          <% end %>
         <% end %>
       </div>
-      <% end %>
-
     </div>
   </div>
 </div>
+

@@ -1,0 +1,128 @@
+.banner {
+  color: white;
+  text-align: center;
+  padding-top: 18vh;
+  height: 100vh;
+  /* if you have a 70px navbar => height: calc(100vh - 70px); */
+  background-size: cover !important;
+  // display: flex;
+  // align-items: center;
+  justify-content: center;
+  .banner-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+}
+
+
+.banner-fullscreen {
+  color: white;
+  text-align: center;
+  height: 105vh;
+  /* if you have a 70px navbar => height: calc(100vh - 70px); */
+  background-size: cover !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.banner-fullscreen-activity {
+  color: white;
+  text-align: center;
+  height: 145vh;
+  /* if you have a 70px navbar => height: calc(100vh - 70px); */
+  background-size: cover !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.banner h1 {
+  font-size: 49px;
+  font-weight: bold;
+  text-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+}
+.banner p {
+  font-size: 20px;
+  font-weight: lighter;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 20px;
+}
+
+.inscription {
+  .btn-medium {
+    margin-top: 30px;
+  }
+}
+
+.mil {
+  position: inline-block
+}
+
+.inscription {
+  .btn{
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;font-weight: normal;
+    text-align: center;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 16px;
+    line-height: 1.4;
+    border-radius: 2px;
+    -webkit-user-select: none;
+  }
+}
+.navbarbanner {
+  padding: 0px;
+  margin: 0px;
+}
+
+
+.btn-register {
+  color: white;
+  border: white 1px solid;
+  padding: 10px 15px;
+  border-radius: 50px;
+  font-weight: lighter;
+  opacity: 1;
+  background-color:transparent;
+  position: inline-block;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-register:hover {
+  opacity: 0.6;
+  text-decoration: none;
+  color: white;
+}
+
+
+.banner-content1 {
+  padding-top: 0vh;
+}
+
+#word-roll-container {
+  width: 200px;
+}
+.banner-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  #second-group {
+    width: 265px;
+    margin: 0 10px;
+    #word-roll {
+    }
+  }
+}
+
+.arrow {
+  font-size: 5vh;
+}

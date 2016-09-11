@@ -1,44 +1,53 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-xs-8 col-xs-offset-2">
-      <h4 class="text-center"> <%= Post.all.count %> tweet sur Benoit Hamon</h4>
+  <br>
+  <br>
+  <br>
+  <br>
+
+<div class="container">
+  <br>
+  <br>
+  <div class="category col-offset text-center">
+    <%= link_to "Opposant", fans_path(genre: "Opposant"), class: "btn btn-danger" %>
+    <%= link_to "Presse", fans_path(genre: "Presse"), class: "btn btn-primary" %>
+    <%= link_to "Inconnu", fans_path(genre: "Inconnu"), class: "btn btn-info" %>
+    <%#= link_to "chercher nouveaux fans", get_the_data_fans_path, class: "btn btn-primary" %>
+    <%= link_to "Sympathisant", fans_path(genre: "Sympathisant"), class: "btn btn-primary" %>
+    <%= link_to "Militant", fans_path(genre: "Militant"), class: "btn btn-success" %>
+  </div>
       <br>
       <br>
-      <div class="category col-offset text-center">
-        <%= link_to "Opposant", fans_path(genre: "Opposant"), class: "btn btn-danger" %>
-        <%= link_to "Presse", fans_path(genre: "Presse"), class: "btn btn-primary" %>
-        <%= link_to "Inconnu", fans_path(genre: "Inconnu"), class: "btn btn-info" %>
-        <%#= link_to "chercher nouveaux fans", get_the_data_fans_path, class: "btn btn-primary" %>
-        <%= link_to "Sympathisant", fans_path(genre: "Sympathisant"), class: "btn btn-primary" %>
-        <%= link_to "Militant", fans_path(genre: "Militant"), class: "btn btn-success" %>
+      <div class="text-center">
+        <h4 class="text-center" style="color: #283583"> <%= Post.all.count %> tweet sur Benoit Hamon</h4>
+        <%= link_to "Retour à la liste complète", root_path, class:"btn btn-warning" %>
       </div>
+
       <hr>
       <div class="row">
-      <br>
-      <br>
-      <div class="category col-offset col-xs-4">
-      <% genre = params["genre"] %>
-      <%= link_to "Follow them all", follow_them_all_fans_path(genre: genre), class: "btn btn-primary" %>
+        <br>
+        <br>
+        <div class="category col-offset col-xs-4">
+          <% genre = params["genre"] %>
+          <%= link_to "Follow them all", follow_them_all_fans_path(genre: genre), class: "btn btn-primary" %>
       <%#= link_to "tweet them all", tweet_them_all_fans_path(genre: genre), class: "btn btn-primary" %>
-      </div>
-      <div class="category col-offset col-xs-6 col-xs-offset-8">
-        <blockquote>
-          <%= simple_form_for(Fan.new) do |f| %>
+        </div>
+        <div class="category col-offset col-xs-6 col-xs-offset-8">
+          <blockquote>
+            <%= simple_form_for(Fan.new) do |f| %>
             <%=  f.input :name, placeholder: "name", label: false, :input_html => {:style => "height: 40px; width: 200px;"}%>
             <%=  f.submit "Créer un fan", class: "btn btn-warning" %>
-          <% end %>
-        </blockquote>
-    </div>
-    <br>
+              <% end %>
+          </blockquote>
+         </div>
+           <br>
 
-      <% @fans.each do |fan| %>
-        <%= link_to fan_path(fan) do %>
+          <% @fans.each do |fan| %>
+          <%= link_to fan_path(fan) do %>
           <div class="ticket">
-            <div class='ticket-status'>
+            <div class="ticket-status">
               <% if fan.contact == "Non-contacté" %>
-                <i class="fa fa-flag check-true-color"></i></li>
+                <i class="fa fa-flag check-true-color"></i>
               <% else %>
-                <i class="fa fa-flag color-red"></i></li>
+                <i class="fa fa-flag color-red"></i>
               <% end %>
             </div>
             <%# post = fan.posts.first %>
@@ -72,11 +81,11 @@
         <div class="row padded">
           <div class="col-xs-6">
 
-        <h4>Envoyer un <em>tweet</em> à toute cette catégorie :</h4>
+        <h4>Envoyer un <em>tweet</em> à toute cette catégorie :</h4>
           <div class="message">
-            <div style="margin-top: 35px;">
+            <div style="margin-top: 15px;">
           <%= simple_form_for(Post.new) do |f| %>
-          <%=  f.input :content, label: false, :input_html => {:style => "height: 60px;", :maxlength => 140}, placeholder: "Merci de votre soutient" %>
+          <%=  f.input :content, label: false, :input_html => {:style => "height: 100px;", :maxlength => 140}, placeholder: "Merci de votre soutient" %>
               <%=  f.hidden_field :destinataire, :value => params["genre"]%>
               <%=  f.submit "Envoyer", class: "btn btn-warning" %>
               <% end %>
@@ -85,20 +94,21 @@
         </div>
 
             <div class="col-xs-6">
-
-              <h4>Envoyer un <em>message privé </em> à toute cette catégorie :</h4>
-
+              <h4>Envoyer un <em>message privé </em> à toute cette catégorie :</h4>
                 <div class="message">
-                  <div style="margin-top: 10px;">
+                  <div style="margin-top: 15px;">
                     <%= simple_form_for(Message.new) do |f| %>
-                    <%=  f.input :sender, label: false, :input_html => {:style => "height: 60px;", :maxlength => 140}, placeholder: "Merci de votre soutient" %>
+                    <%=  f.input :sender, label: false, :input_html => {:style => "height: 100px;", :maxlength => 140}, placeholder: "Merci de votre soutient" %>
                     <%=  f.hidden_field :destinataire, :value => params["genre"]%>
                     <%=  f.submit "Envoyer", class: "btn btn-warning" %>
                     <% end %>
                   </div>
                 </div>
-
+            </div>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 </div>
