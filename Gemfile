@@ -9,6 +9,13 @@ gem 'jbuilder', '~> 2.0'
 gem 'devise', github: 'plataformatec/devise'
 gem 'redis'
 gem 'twitter'
+gem 'sidekiq'
+gem 'sidekiq-failures'
+
+# Dependency for the Sidekiq Web UI
+#   => https://github.com/mperham/sidekiq/wiki/Monitoring
+gem 'sinatra', ">= 2.0.0.beta2", require: false
+
 
 gem 'sass-rails'
 gem 'jquery-rails'
