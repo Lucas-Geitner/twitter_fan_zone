@@ -14,7 +14,7 @@ class SearchJob < ApplicationJob
     @fans_names = []
     @searchs = ["to: benoithamon", "#benoithamon2017", "#lagauchepourgagner"]
     @searchs.each do |search|
-      @client.search(search, result_type: "recent").take(100).collect do |tweet|
+      @client.search(search, result_type: "recent").take(2000).collect do |tweet|
         @posts = Post.all
         @posts.each do |post|
           @posts_ids << post.tweet_id
