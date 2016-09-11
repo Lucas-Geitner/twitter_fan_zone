@@ -8,7 +8,6 @@ class FollowJob < ApplicationJob
       config.access_token        = ENV["ACESS_TOKEN"]
       config.access_token_secret = ENV["ACESS_TOKEN_SECRET"]
     end
-    sleep 60
     @fans = Fan.where(category: querry).order('counter_of_tweet DESC').limit(200)
     @fans.each do |fan|
       id = fan.posts.first.tweeter_user_id.to_i
