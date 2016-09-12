@@ -37,7 +37,7 @@ class MessageJob < ApplicationJob
         @fan = Fan.find(querry)
         fan = @client.user(@fan.posts.first.tweeter_user_id.to_i)
         @a = @client.direct_message_create(fan, message)
-        @message = Post.new(text: message, sender: @a.id.to_s, fan_id: fan.id)
+        @message = Message.new(text: message, sender: @a.id.to_s, fan_id: fan.id)
         @message.sender = @a.sender.id.to_s
         @message.save
         @fan.messages << @message
