@@ -11,6 +11,33 @@ class MessagesController < ApplicationController
     redirect_to fans_path
     end
 
+    def index
+      @messages = Message.all
+    end
+
+    def actualise
+      @messages = Message.all
+      @messages_ids = []
+      @messages.each do |m|
+        @messages_ids << m.id
+      end
+
+      @message_recu = @client.direct_messages
+      @message_recu.each do |message|
+        unless @messages_ids.include? message.id.to_s
+          @message = Message.new(text: message.text, sender: message.sender.id)
+          fan = Post.where(tweeter_user_id: message.sender.id).first.fan
+          @message.direct_message_id = message.id
+          @message.fan = fan
+          @message.save
+          fan.messages << @message
+          fan.save
+          sleep 60
+        end
+      end
+      redirect_to messages_path
+    end
+
   private
 
   def post_param

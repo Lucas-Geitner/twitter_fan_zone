@@ -2,7 +2,12 @@ Rails.application.routes.draw do
   devise_for :users
   root to: 'fans#index'
   resources :posts, only: [:create]
-  resources :messages, only: [:create]
+  resources :messages, only: [:create, :index] do
+    collection do
+      get 'actualise'
+    end
+  end
+
   resources :fans do
     collection do
       get 'get_the_data'

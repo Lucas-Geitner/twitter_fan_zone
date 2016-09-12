@@ -1,0 +1,8 @@
+<h1> Messages: </h1>
+<% @messages.each do |message| %>
+
+  <p><%= message.fan.id %></p>
+  <p><%= message.text %></p>
+  <p><%= message.sender %></p>
+  <hr>
+  <% end %>

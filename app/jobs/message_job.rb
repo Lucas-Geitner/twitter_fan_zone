@@ -22,7 +22,7 @@ class MessageJob < ApplicationJob
           fane = @client.user(id)
           if @followers.include? fane.id
             @a = @client.direct_message_create(fane, message)
-            @message = Message.new(text: message, sender: @a.id, fan_id: fan.id)
+            @message = Message.new(text: message, sender: @a.id, fan_id: fan.id) ## The @a seems to be shit!
             @message.save
             fan.messages << @message
             fan.save
