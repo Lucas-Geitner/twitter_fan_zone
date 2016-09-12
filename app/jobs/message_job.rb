@@ -31,18 +31,20 @@ class MessageJob < ApplicationJob
           end
         end
       else
-      @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
+        @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
       end
       else
         @fan = Fan.find(querry)
-        fan = @client.user(@fan.posts.first.tweeter_user_id.to_i)
-        @a = @client.direct_message_create(fan, message)
-        @message = Message.new(text: message, sender: @a.id.to_s, fan_id: fan.id)
-        @message.sender = @a.sender.id.to_s
-        @message.save
-        @fan.messages << @message
-        @fan.save
-        sleep 60
+          if @followers.include? @fan.id
+          fan = @client.user(@fan.posts.first.tweeter_user_id.to_i)
+          @a = @client.direct_message_create(fan, message)
+          @message = Message.new(text: message, sender: @a.id.to_s, fan_id: fan.id)
+          @message.sender = @a.sender.id.to_s
+          @message.save
+          @fan.messages << @message
+          @fan.save
+          sleep 60
+        end
     end
   end
 end
