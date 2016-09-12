@@ -22,7 +22,8 @@ class MessageJob < ApplicationJob
           fane = @client.user(id)
           if @followers.include? fane.id
             @a = @client.direct_message_create(fane, message)
-            @message = Message.new(text: message, sender: @a.id, fan_id: fan.id) ## The @a seems to be shit!
+            @message = Message.new(text: message, direct_message_id: @a.id.to_s, fan_id: fan.id) ## The @a seems to be shit!
+            @message.sender = @a.sender.id.to_s
             @message.save
             fan.messages << @message
             fan.save
@@ -33,15 +34,13 @@ class MessageJob < ApplicationJob
       @fans = Fan.all.order('counter_of_tweet DESC').limit(200)
       end
       else
-        user = params["post"]["destinataire"].to_i
-        message = params["post"]["sender"]
-        @fan = Fan.find(user)
+        @fan = Fan.find(querry)
         fan = @client.user(@fan.posts.first.tweeter_user_id.to_i)
         @a = @client.direct_message_create(fan, message)
-        @a = @client.update("@#{fan.screen_name} #{message}")
-        @message = Post.new(text: message, sender: @a.id, fan_id: fan.id)
+        @message = Post.new(text: message, sender: @a.id.to_s, fan_id: fan.id)
+        @message.sender = @a.sender.id.to_s
         @message.save
-        @fan.posts << @message
+        @fan.messages << @message
         @fan.save
         sleep 60
     end
