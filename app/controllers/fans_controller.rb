@@ -63,6 +63,15 @@ class FansController < ApplicationController
     querry = params["genre"]
     message = params["message"]
   end
+  def list_of_them
+    @fans = Fan.where(Category: "Militant")
+    @fan_for_message = []
+    @fans.each do |fan|
+      name = fan.url_fan.gsub("https://twitter.com/","@")
+      @fan_for_message << name
+  end
+  flash[:notice] = @fan_for_message
+
 end
 
 private

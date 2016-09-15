@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :fans do
     collection do
       get 'get_the_data'
+      get 'list_of_them'
       get 'follow_them_all'
       get 'tweet_them_all'
     end
