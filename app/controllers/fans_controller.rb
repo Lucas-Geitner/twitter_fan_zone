@@ -33,8 +33,6 @@ class FansController < ApplicationController
 
   def create
     name = params["fan"]["name"]
-    list = [ "@Tord_Tank", "bhacourt", "tbousmaha" ,"thierry_sainton" ,"Joseph_Dion" ,"Caam28" ,"DraZyel" ,"anthonydelloye" ,"leop01d" ,"jefftavernier" ,"jacques canevet" ,"cgricourt" ,"MMonneyPenny" ,"thomss_lssg" ,"wtf_ben" ,"tessierjonathan" ,"Chabeaupas" ,"FrancoisRobinet" ,"FransWouah" ,"Vlado31026881" ,"BuannArt" ,"Pat78390" ,"M_Afxx" ,"PonsMorgane" ,"avoir" ,"baptisteduprat" ,"playmobildeparis" ,"DavidCédric" ,"LoulieH" ,"john_solo" ,"nicolasperera" ,"alizeeostrowski" ,"FRL16020" ,"moisset_laurent" ,"RomainFontaine8" ,"nanou2302" ,"LahcenAitelhadj" ,"AdrienRivollier" ,"lisahrulliere" ,"Pauline_Rmz" ,"Stlump" ,"Maharelle" ,"justineognibene" ,"virginiehr" ,"Jonathan_Rothe_" ,"Lotfi" ,"jomalu2010" ,"billaudvarenne" ,"apfersdorff" ,"Frankois" ,"neant" ,"PereraRobin" ,"pierrick_lvn" ,"j.haydn" ,"bielowrain" ,"fx_jeanne" ,"FPoezevara" ,"la face bouc" ,"bilbosarthe" ,"_Helene_G" ]
-    list.each_with_index do |name, index|
 
     name.gsub!("@", "")
     twitteur = @client.user(name)
@@ -48,13 +46,7 @@ class FansController < ApplicationController
       @fan.url_fan = tweet.user.uri
       @fan.save
     end
-  if index = 15
-    break
     redirect_to @fan
-  end
-end
-
-    # redirect_to @fan
   end
 
   def follow_them_all
