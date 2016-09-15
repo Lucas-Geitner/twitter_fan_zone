@@ -37,12 +37,14 @@ class FansController < ApplicationController
     twitteur = @client.user(name)
     @fan = Fan.new(name: twitteur.name, category: "Militant", contact: "Non Contacté")
     tweet = twitteur.tweet
-    create_post(tweet)
-    @fan.posts << @post
-    @fan.counter_of_tweet = @fan.counter_of_tweet + 1
     @fan.image_url = tweet.user.profile_image_url
-    @fan.url_fan = tweet.user.uri
-    @fan.save
+    if @fan.image_url
+      create_post(tweet)
+      @fan.posts << @post
+      @fan.counter_of_tweet = @fan.counter_of_tweet + 1
+      @fan.url_fan = tweet.user.uri
+      @fan.save
+    end
     redirect_to @fan
   end
 
