@@ -47,4 +47,12 @@ class SearchJob < ApplicationJob
       end
     end
   end
+  def create_post(tweet)
+    @post = Post.new()
+    @post.tweet_id = tweet.id.to_s
+    @post.tweeter_user_id = tweet.user.id.to_s
+    @post.url_post = tweet.uri
+    @post.content = tweet.text
+    @post.save
+  end 
 end
