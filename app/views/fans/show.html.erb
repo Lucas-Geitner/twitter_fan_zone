@@ -24,7 +24,7 @@
 <div class="wrapper contenu">
   <div class="container">
     <div class="row">
-      <div class="col-xs-6">
+      <div class="col-xs-12 col-sm-6">
       <h3>Tweet</h3>
         <blockquote class="message padded" >
           <div style="margin-top: 15px;">
@@ -39,7 +39,7 @@
         </blockquote>
       </div>
 
-      <div class="col-xs-6">
+      <div class="col-xs-12 col-sm-6">
       <h3>Message privé</h3>
         <blockquote class="message padded" >
           <div style="margin-top: 15px;">
@@ -53,14 +53,14 @@
           </div>
         </blockquote>
       </div>
-
+      </div>
     </div>
-  </div>
+
 
 
   <div class="container">
     <div class="row">
-      <div class="col-xs-4 col-xs-offset-4">
+      <div class="col-xs-4 col-xs-offset-4 ">
         <%= simple_form_for(@fan) do |f| %>
         <h5>Changer la catégorie :</h5>
         <%= f.input :category, collection: Fan::CATEGORIES,label: false, include_blank: false %>
@@ -86,7 +86,7 @@
       <div class="row">
         <% @fan.posts.each do |post| %>
           <% unless post.content.first(2) == "RT" %>
-            <div class="col-xs-12 col-sm-4">
+            <div class="col-xs-12 col-sm-6">
               <%=  link_to "#{post.url_post}", :target => "blank" do %>
               <blockquote class="twitter-tweet padded">
                 <p><%= post.content %></p>

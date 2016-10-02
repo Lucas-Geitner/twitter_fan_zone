@@ -31,3 +31,13 @@
 
 
 }
+
+.flexbox {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.flex-items {
+  flex: 0 0 20%;
+}

@@ -5,13 +5,14 @@
   <% end %>
 
       <%= link_to("http://www.benoithamon2017.fr/", :target => "blank") do %>
-      <%= image_tag "logo-small.png", title: "Site officiel", data: {toggle: "tooltip", placement: "bottom"}  %>
+      <%= image_tag "logo-small.png", class:"hidden-xs", title: "Site officiel", data: {toggle: "tooltip", placement: "bottom"}  %>
       <% end %>
 
 
   <!-- Right Navigation -->
   <div class="navbar-wagon hidden-xs hidden-sm">
     <h2 style="color: #dc257d;"><%= link_to "Twitter fan zone", root_path, title: "Retour à la liste de fans", data: {toggle: "tooltip", placement: "bottom"} %></h2>
+
     <!-- Search form -->
 
     <!-- Different navigation if login or not -->
@@ -27,7 +28,7 @@
           <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
            <!--  <li>
               <%#= link_to "#" do %>
-                <i class="fa fa-user"></i> <%= t(".profile", default: "Profile") %>
+                <i class="fa fa-user"></i> <%#= t(".profile", default: "Profile") %>
               <%# end %>
             </li> -->
             <li>
@@ -44,15 +45,14 @@
         </div>
       </div>
 
-    <% else %>
 
-      <!-- Login text link -->
-      <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %>
-
-    <% end %>
 
     <!-- Button (call-to-action) -->
     <%= link_to t(".top_call_to_action", default: "Actualiser"), get_the_data_fans_path, class: "navbar-wagon-item navbar-wagon-button btn" %>
+  </div>
+
+  <div class="navbar-wagon hidden-md hidden-lg">
+    <h5 style="color: #dc257d;"><%= link_to "Twitter fan zone", root_path, title: "Retour à la liste de fans", data: {toggle: "tooltip", placement: "bottom"} %></h5>
   </div>
 
   <!-- Dropdown list appearing on mobile only -->
@@ -61,10 +61,26 @@
       <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
       <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
         <li><a href="/fans">Home</a></li>
-        <li><a href="/users/sign_in">Sign in</a></li>
+        <li><%= link_to t(".top_call_to_action", default: "Actualiser"), get_the_data_fans_path %></li>
+        <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
 
       </ul>
     </div>
   </div>
+   <% else %>
+
+      <!-- Login text link -->
+      <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-wagon-item navbar-wagon-link" %>
+      <div class="navbar-wagon-item hidden-md hidden-lg">
+    <div class="dropdown">
+      <i class="fa fa-bars dropdown-toggle" data-toggle="dropdown"></i>
+      <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
+        <li><a href="/fans">Home</a></li>
+        <li><a href="/users/sign_in">Sign in</a></li>
+
+      </ul>
+    </div>
+
+    <% end %>
 </div>
 
