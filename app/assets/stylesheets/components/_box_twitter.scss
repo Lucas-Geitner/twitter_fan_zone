@@ -13,6 +13,7 @@ blockquote.twitter-tweet {
   padding: 0 16px 16px 16px;
   width: 350px;
   height: 100px;
+
 }
   blockquote.message {
   display: inline-block;
@@ -29,6 +30,12 @@ blockquote.twitter-tweet {
   padding: 0 16px 16px 16px;
   width: 500px;
   height: 175px;
+  @media only screen and (max-width: 500px) {
+
+      width: 350px;
+
+
+}
   }
 
 

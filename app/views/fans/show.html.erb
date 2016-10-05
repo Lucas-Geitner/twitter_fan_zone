@@ -60,7 +60,7 @@
 
   <div class="container">
     <div class="row">
-      <div class="col-xs-4 col-xs-offset-4 ">
+      <div class="col-xs-6 col-md-4 col-xs-offset-3 ">
         <%= simple_form_for(@fan) do |f| %>
         <h5>Changer la catégorie :</h5>
         <%= f.input :category, collection: Fan::CATEGORIES,label: false, include_blank: false %>
