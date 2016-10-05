@@ -62,6 +62,10 @@
       <ul class="dropdown-menu dropdown-menu-right navbar-wagon-dropdown-menu">
         <li><a href="/fans">Home</a></li>
         <li><%= link_to t(".top_call_to_action", default: "Actualiser"), get_the_data_fans_path %></li>
+        <li><%= link_to("http://www.benoithamon2017.fr/", :target => "blank") do %>
+          <%= "Site officiel" %>
+          <% end %>
+        </li>
         <li><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
 
       </ul>
